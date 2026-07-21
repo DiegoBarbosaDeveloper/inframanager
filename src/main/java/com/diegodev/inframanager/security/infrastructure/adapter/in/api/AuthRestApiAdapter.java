@@ -1,7 +1,9 @@
-package com.diegodev.inframanager.controller;
+package com.diegodev.inframanager.security.infrastructure.adapter.in.api;
 
-import com.diegodev.inframanager.dto.request.LoginRequest;
-import com.diegodev.inframanager.dto.request.RegisterRequest;
+import com.diegodev.inframanager.security.infrastructure.adapter.in.api.dto.login.LoginRequest;
+import com.diegodev.inframanager.security.infrastructure.adapter.in.api.dto.register.RegisterRequest;
+import com.diegodev.inframanager.service.jwt.JwtService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,12 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController {
+@RequiredArgsConstructor
+public class AuthRestApiAdapter {
+
+    private final JwtService jwtService;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest request){
 
-        return ResponseEntity.ok(request.toString());
+
+
+        return ResponseEntity.ok(null);
 
     }
 

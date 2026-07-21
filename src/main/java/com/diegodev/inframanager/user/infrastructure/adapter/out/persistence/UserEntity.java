@@ -1,4 +1,4 @@
-package com.diegodev.inframanager.entity;
+package com.diegodev.inframanager.user.infrastructure.adapter.out.persistence;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -11,7 +11,7 @@ import java.util.UUID;
 @Entity(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,5 +26,8 @@ public class User {
     @Email
     @Column(nullable = false, unique = true)
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    private PersistenceRole role;
 
 }
