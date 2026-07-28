@@ -1,6 +1,9 @@
-package com.diegodev.inframanager.user.infrastructure.adapter.in.api.dto;
+package com.diegodev.inframanager.user.infrastructure.adapter.in.api.mapper;
 
+import com.diegodev.inframanager.security.domain.model.Register;
 import com.diegodev.inframanager.user.domain.model.User;
+import com.diegodev.inframanager.user.infrastructure.adapter.in.api.dto.UserRequest;
+import com.diegodev.inframanager.user.infrastructure.adapter.in.api.dto.UserResponse;
 import com.diegodev.inframanager.user.infrastructure.adapter.out.persistence.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,7 +13,7 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     User toDomainFromRequest(UserRequest request);
     User toDomainFromEntity(UserEntity entity);
-    @Mapping(target = "password", ignore = true)
     UserResponse toResponse(User user);
     UserEntity toEntity(User user);
+
 }

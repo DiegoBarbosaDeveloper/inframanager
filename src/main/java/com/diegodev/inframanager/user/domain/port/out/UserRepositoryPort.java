@@ -11,6 +11,7 @@ public interface UserRepositoryPort {
     User save(User user);
     Optional<User> getById(UUID id);
     Optional<User> getByEmail(String email);
+    boolean existByEmail(String email);
     List<User> getAll();
     void delete(UUID id);
 }

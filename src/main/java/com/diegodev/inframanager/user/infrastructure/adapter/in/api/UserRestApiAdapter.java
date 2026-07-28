@@ -1,11 +1,9 @@
 package com.diegodev.inframanager.user.infrastructure.adapter.in.api;
 
-import com.diegodev.inframanager.user.domain.model.User;
 import com.diegodev.inframanager.user.domain.port.in.UserUseCase;
-import com.diegodev.inframanager.user.infrastructure.adapter.in.api.dto.UserMapper;
+import com.diegodev.inframanager.user.infrastructure.adapter.in.api.mapper.UserMapper;
 import com.diegodev.inframanager.user.infrastructure.adapter.in.api.dto.UserRequest;
 import com.diegodev.inframanager.user.infrastructure.adapter.in.api.dto.UserResponse;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,12 +15,16 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/users")
 @Transactional
-@RequiredArgsConstructor
-public class UserRestApiAdapter implements UserRestApi{
+public class UserRestApiAdapter implements UserRestApi {
 
     private final UserUseCase userUseCase;
 
     private final UserMapper userMapper;
+
+    public UserRestApiAdapter(UserUseCase userUseCase, UserMapper userMapper) {
+        this.userUseCase = userUseCase;
+        this.userMapper = userMapper;
+    }
 
 
     @PostMapping
