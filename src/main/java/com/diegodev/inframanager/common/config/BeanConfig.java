@@ -15,18 +15,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeanConfig {
 
+
+    /*
+     * Clase para declarar los beans que no sean gestionados por Spring. Algunas clases
+     * ya se manejan de manera automática vía Spring Boot con las anotaciones @Service
+     *
+     */
+
     @Bean
-    public UserUseCase userUseCase(UserRepositoryPort repo, PasswordEncoderPort encoder){
-        return new UserService(repo, encoder);
+    public UserUseCase userUseCase(
+            UserRepositoryPort userRepositoryPort,
+            PasswordEncoderPort passwordEncoderPort
+    ){
+        return new UserService(userRepositoryPort, passwordEncoderPort);
     }
 
 
-    @Bean
-    public AuthUseCase authUseCase(UserRepositoryPort repo,
-                                   PasswordEncoderPort encoder,
-                                   TokenProviderPort tokenProvider,
-                                   AuthMapper authMapper){
-        return new AuthService(repo, encoder, tokenProvider, authMapper);
-    }
 
 }

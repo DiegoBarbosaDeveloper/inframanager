@@ -49,7 +49,7 @@ public class AuthService implements AuthUseCase {
             throw new RuntimeException("User Already Exist");
         }
 
-        user.setRole(Role.USER);
+        user.setRole(Role.VIEWER);
         Register register = authMapper.toRegister(user);
 
         register.setToken(tokenProvider.generateToken(repository.save(user)));

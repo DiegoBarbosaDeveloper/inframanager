@@ -19,6 +19,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /*
+     * Configuración básica para Spring Security, con el filtro jwt,
+     * la cadena de filtro y algunos Beans de configuración para Spring
+     */
+
     private final JwtAuthFilter jwtAuthFilter;
 
     public SecurityConfig(JwtAuthFilter jwtAuthFilter) {

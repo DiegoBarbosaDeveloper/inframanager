@@ -2,5 +2,8 @@ package com.diegodev.inframanager.user.domain.model;
 
 public enum Role {
     ADMIN,
-    USER
+    DEVOPS,
+    SUPPORT,
+    MANAGER,
+    VIEWER
 }

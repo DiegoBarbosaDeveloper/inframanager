@@ -4,15 +4,11 @@ import com.diegodev.inframanager.security.domain.port.out.PasswordEncoderPort;
 import com.diegodev.inframanager.user.domain.model.User;
 import com.diegodev.inframanager.user.domain.port.in.UserUseCase;
 import com.diegodev.inframanager.user.domain.port.out.UserRepositoryPort;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
 
-@Service
-@Transactional
 public class UserService implements UserUseCase {
 
     private final UserRepositoryPort userRepository;
