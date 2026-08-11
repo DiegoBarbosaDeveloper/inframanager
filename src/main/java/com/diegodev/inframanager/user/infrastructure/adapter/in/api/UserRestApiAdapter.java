@@ -28,7 +28,6 @@ public class UserRestApiAdapter implements UserRestApi {
 
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public ResponseEntity<UserResponse> saveUser(UserRequest request) {
 
@@ -39,7 +38,6 @@ public class UserRestApiAdapter implements UserRestApi {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @Override
     public ResponseEntity<UserResponse> getUser(@PathVariable UUID id) {
         var user = userUseCase.getById(id);
@@ -48,7 +46,6 @@ public class UserRestApiAdapter implements UserRestApi {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         List<UserResponse> userResponses = userUseCase.getAll().stream()

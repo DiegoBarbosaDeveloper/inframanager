@@ -1,6 +1,8 @@
 package com.diegodev.inframanager.server.infrastructure.adapter.out.persistence;
 
+import com.diegodev.inframanager.server.domain.model.OperativeSystem;
 import com.diegodev.inframanager.server.domain.model.Server;
+import com.diegodev.inframanager.server.domain.model.ServerStatus;
 import com.diegodev.inframanager.server.domain.port.out.ServerRepositoryPort;
 import com.diegodev.inframanager.server.infrastructure.adapter.in.api.mapper.ServerMapper;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
+import java.util.Locale;
 
 @Repository
 @Lazy
@@ -34,14 +38,27 @@ public class ServerRepositoryAdapter implements ServerRepositoryPort {
     }
 
     @Override
+    public Server getByIp(String ip) {
+        return serverMapper.toDomainFromEntity(serverJpaRepository.findByIp(ip));
+    }
+
+    @Override
+    public Server getById(Long id) {
+        return serverMapper.toDomainFromEntity(serverJpaRepository.findById(id).get());
+    }
+
+    @Override
     public Page<Server> getAllServer(Pageable pageable) {
         return serverJpaRepository.findAll(pageable)
                 .map(serverMapper::toDomainFromEntity);
     }
 
     @Override
-    public Page<Server> getByOS(PersistenceOperativeSystem os, Pageable pageable) {
-        return serverJpaRepository.findAllByOs(os, pageable)
+    public Page<Server> getByOS(OperativeSystem os, Pageable pageable) {
+
+        var toOs = PersistenceOperativeSystem.valueOf(os.name().toUpperCase(Locale.ROOT));
+
+        return serverJpaRepository.findAllByOs(toOs, pageable)
                 .map(serverMapper::toDomainFromEntity);
     }
 
@@ -52,9 +69,17 @@ public class ServerRepositoryAdapter implements ServerRepositoryPort {
     }
 
     @Override
-    public Page<Server> getByStatus(PersistenceServerStatus status, Pageable pageable) {
-        return serverJpaRepository.findAllByStatus(status, pageable)
+    public Page<Server> getByStatus(ServerStatus status, Pageable pageable) {
+
+        var toStatus = PersistenceServerStatus.valueOf(status.name().toUpperCase(Locale.ROOT));
+
+        return serverJpaRepository.findAllByStatus(toStatus, pageable)
                 .map(serverMapper::toDomainFromEntity);
+    }
+
+    @Override
+    public Page<Server> getByCpu(String cpu, Pageable pageable) {
+        return serverJpaRepository.findAllByCpu(cpu, pageable).map(serverMapper::toDomainFromEntity);
     }
 
     @Override
@@ -66,6 +91,11 @@ public class ServerRepositoryAdapter implements ServerRepositoryPort {
     @Override
     public boolean existByIp(String ip) {
         return serverJpaRepository.existsByIp(ip);
+    }
+
+    @Override
+    public boolean existById(Long id) {
+        return serverJpaRepository.existsById(id);
     }
 
 

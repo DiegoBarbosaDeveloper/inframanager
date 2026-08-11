@@ -22,10 +22,10 @@ public class ApiResponse<T> {
     private List<String> errors;
 
 
-    public static <T> ApiResponse<T> success(String massage, T data){
+    public static <T> ApiResponse<T> success(T data){
         return ApiResponse.<T>builder()
                 .success(true)
-                .massage(massage)
+
                 .data(data)
                 .build();
     }

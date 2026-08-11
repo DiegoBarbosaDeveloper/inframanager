@@ -10,10 +10,14 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    @Mapping(target = "id", ignore = true)
     User toDomainFromRequest(UserRequest request);
+
+    @Mapping(target = "id", source = "idUser")
     User toDomainFromEntity(UserEntity entity);
+
+    @Mapping(target = "id", source = "id")
     UserResponse toResponse(User user);
+
     UserEntity toEntity(User user);
 
 }

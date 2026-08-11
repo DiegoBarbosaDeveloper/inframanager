@@ -4,12 +4,13 @@ import com.diegodev.inframanager.user.domain.model.User;
 import com.diegodev.inframanager.user.domain.port.out.UserRepositoryPort;
 import com.diegodev.inframanager.user.infrastructure.adapter.in.api.mapper.UserMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Component
+@Repository
 public class UserRepositoryAdapter implements UserRepositoryPort {
 
     private final UserJpaRepository repository;

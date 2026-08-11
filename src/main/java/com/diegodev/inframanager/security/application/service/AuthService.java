@@ -9,6 +9,8 @@ import com.diegodev.inframanager.security.infrastructure.adapter.in.api.mapper.A
 import com.diegodev.inframanager.user.domain.model.Role;
 import com.diegodev.inframanager.user.domain.model.User;
 import com.diegodev.inframanager.user.domain.port.out.UserRepositoryPort;
+import jakarta.validation.constraints.NotBlank;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
@@ -26,10 +28,9 @@ public class AuthService implements AuthUseCase {
 
 
     @Override
-    public Login login(String email, String password) {
+    public Login login(@NotBlank String email, @NonNull String password) {
         User user = repository.getByEmail(email)
                 .orElseThrow(() -> new BadCredentialsException("Email Not Found, watch for your Email"));
-
         if (!encoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("Password is not correct");
         }
@@ -44,13 +45,19 @@ public class AuthService implements AuthUseCase {
     }
 
     @Override
-    public Register register(User user) {
+    public Register register(@NonNull User user) {
+
+        if(user.getEmail().isBlank()){
+            throw new RuntimeException("Email Not Valid");
+        }
+
         if(repository.existByEmail(user.getEmail())){
             throw new RuntimeException("User Already Exist");
         }
 
         user.setRole(Role.VIEWER);
         Register register = authMapper.toRegister(user);
+        register.setPassword(encoder.encode(register.getPassword()));
 
         register.setToken(tokenProvider.generateToken(repository.save(user)));
 

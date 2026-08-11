@@ -16,4 +16,8 @@ public interface ServerJpaRepository extends JpaRepository<ServerEntity, Long> {
     Page<ServerEntity> findAllByStatus(PersistenceServerStatus status, Pageable pageable);
 
     Page<ServerEntity> findAllByLocation(String location, Pageable pageable);
+
+    Page<ServerEntity> findAllByCpu(String cpu, Pageable pageable);
+
+    ServerEntity findByIp(String ip);
 }

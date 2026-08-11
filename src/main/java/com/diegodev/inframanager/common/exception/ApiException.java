@@ -1,7 +1,11 @@
 package com.diegodev.inframanager.common.exception;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class ApiException extends RuntimeException{
     private final HttpStatus status;
 
@@ -10,7 +14,4 @@ public class ApiException extends RuntimeException{
         this.status = status;
     }
 
-    public HttpStatus getStatus(){
-        return status;
-    }
 }
